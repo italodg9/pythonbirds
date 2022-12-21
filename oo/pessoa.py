@@ -10,6 +10,14 @@ class Pessoa:
     def cumprimentar(self):
         return f'Olá {id(self)}'
 
+    @staticmethod
+    def metodo_estatico():
+        return 42
+
+    @classmethod
+    def metodo_de_classe_estatico(cls):
+        return f'{cls} --- {cls.rins}'
+
 
 if __name__ == '__main__':
     italo = Pessoa(nome='Ítalo')
@@ -36,5 +44,8 @@ if __name__ == '__main__':
     print(carlos.__dict__)
     del carlos.rins
     print(carlos.__dict__)
-
+    carlos.rins = 1
+    print(Pessoa.metodo_estatico(), carlos.metodo_estatico())
+    print(Pessoa.metodo_de_classe_estatico(), carlos.metodo_de_classe_estatico())
+    print(carlos.__dict__)
 
