@@ -1,51 +1,73 @@
 class Pessoa:
-    rins = 2
+    bracos = 2
 
-    def __init__(self, *filhos, nome=None, idade = 35):
+    def __init__(self, nome, sobrenome, idade, *filhos, pernas=2):
+        self.pernas = pernas
+        self.filhos = filhos
+        self.sobrenome = sobrenome
         self.idade = idade
         self.nome = nome
-        self.filhos = list(filhos)
-
 
     def cumprimentar(self):
-        return f'Olá {id(self)}'
+        return f'Ola {self.nome}'
 
     @staticmethod
     def metodo_estatico():
-        return 42
+        return 55
 
     @classmethod
-    def metodo_de_classe_estatico(cls):
-        return f'{cls} --- {cls.rins}'
+    def nome_atributos(cls):
+        return f'{cls} - olhos {cls.bracos} '
 
+class Homem(Pessoa):
+    pass
+
+class Mutante(Pessoa):
+    bracos = 5
+    pernas = 9
+    def cumprimentar(self):
+        print(f'Eae Doidao')
+        cumprimentar_da_classe = super().cumprimentar()
+        print(f"{cumprimentar_da_classe}, Eae Doidao")
 
 if __name__ == '__main__':
-    italo = Pessoa(nome='Ítalo')
-    carlos = Pessoa(italo,nome ='Carlos', idade =51)
+    Renata = Pessoa('Renata', 'Barbosa', 25)
+    Richarlisson = Pessoa('Richarlisson', 'Gomes Barbosa', 3)
+    Italo = Homem('Ítalo', 'Gomes', 27, Richarlisson.nome)
+    print(Pessoa.cumprimentar(Renata))
+    print(Renata.cumprimentar())
+    print(f'{Renata.nome} {Renata.sobrenome} possui {Renata.idade} anos. '
+          f'\nFilhos? {Renata.filhos}. \n'
+          f'Quantidade de Pernas = {Renata.pernas}')
 
-    print(Pessoa.cumprimentar(carlos))
-    print(id(carlos))
-    print(carlos.cumprimentar())
-    print(carlos.nome)
-    print(carlos.idade)
-    for filho in carlos.filhos:
-        print(filho.nome)
-    carlos.sobrenome = 'Gomes'
-    print(carlos.nome, carlos.sobrenome)
-    print(carlos.__dict__)
-    print(italo.__dict__)
-    del carlos.filhos
-    print(carlos.__dict__)
-    print(Pessoa.rins)
-    print(italo.rins)
-    carlos.rins = 1
-    print(carlos.__dict__)
-    Pessoa.rins = 5
-    print(carlos.__dict__)
-    del carlos.rins
-    print(carlos.__dict__)
-    carlos.rins = 1
-    print(Pessoa.metodo_estatico(), carlos.metodo_estatico())
-    print(Pessoa.metodo_de_classe_estatico(), carlos.metodo_de_classe_estatico())
-    print(carlos.__dict__)
+    print()
 
+    print(f'{Italo.nome} {Italo.sobrenome} possui {Italo.idade} anos. '
+          f'\nFilhos? {Italo.filhos} '
+          f'\nQuantidade de Pernas = {Italo.pernas}')
+
+    Italo.olhos = 2
+    print(Italo.olhos)
+    print(Italo.__dict__)
+    print(Renata.__dict__)
+    del Italo.filhos
+    print(Italo.__dict__)
+    print(Italo.bracos)
+    Italo.bracos=1
+    print(Italo.__dict__)
+
+    print(Pessoa.metodo_estatico())
+    print(Italo.metodo_estatico())
+    print(Pessoa.nome_atributos())
+    print(Italo.nome_atributos())
+    print()
+    anonima = Homem('anonimus', 'nao', 25)
+    print(isinstance(anonima, Pessoa))
+    print(Italo.cumprimentar())
+
+    Hulk = Mutante('Hulk', 'José', 157894, pernas = 56)
+    print(Hulk.__dict__)
+    Hulk.cumprimentar()
+
+print([_ for _ in range(10)])
+print([letras for letras in range(50)])
